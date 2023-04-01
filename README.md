@@ -1,4 +1,4 @@
-# MiniImm
+# MiniImm [![Docs](https://docs.rs/miniimm/badge.svg)](https://docs.rs/icu) [![Latest Version]][crates.io]
 
 MiniImm is a small rust library providing small string optimization for immutable strings.
 If you have many small strings, it can be beneficial to store them inline on the stack
@@ -9,20 +9,18 @@ There are many libraries providing small string optimization for mutable strings
 such as [smartstring](https://crates.io/crates/smartstring), or [tinystr](https://crates.io/crates/tinystr),
 but there aren't any specifically for immutable strings.
 
-## Why?
+### Why?
 
-Why not just use a mutable string library instead?
-Memory - mutable strings contain three fields on the stack when allocated, a pointer, a length, and a capacity
-for a total stack size of 24 bytes per string.
-Allocated immutable strings only require a pointer and a length,
-meaning the stack size is only 16 bytes.
+Mutable strings require 24 bytes on the stack, but MiniImm only requires 16 bytes.
+Mutable strings contain three fields on the stack when allocated, a pointer, a length, and a capacity.
+Immutable strings do not need the capacity field and only require a pointer and a length.
 However, this means that this library can only store strings of up to 14 bytes inline as opposed to over 20
 bytes for mutable strings.
 
-## Unsafe?
+### Unsafe?
 Yes.
 
-## Example:
+### Example:
 
 ```rust
 use miniimm::MiniImmStr;
@@ -44,3 +42,8 @@ fn main() {
     assert!(std::mem::size_of::<MiniImmStr>() == 16);
 }
 ```
+
+### Caveats
+- Various methods and traits may not be implemented (make an issue!).
+- Only 14 bytes can be stored inline, as opposed to 20+ for other libraries.
+- Due to implementation details, the length of a string must fit in a `u32`.

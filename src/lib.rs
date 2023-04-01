@@ -1,8 +1,9 @@
-const MAX_INLINE_STR_LEN: usize = 14;
+/// The maximum number of bytes that can be stored inline.
+pub const MAX_INLINE_STR_LEN: usize = 14;
 
 /// Length of string must fit in a u32.
 /// Allows 14 bytes to be stored inline.
-/// Struct is 16 bytes.
+/// Struct is 16 bytes on the stack.
 pub struct MiniImmStr {
     inner: StrTypes,
 }
