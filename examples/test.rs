@@ -1,22 +1,18 @@
-fn main() {
-    let heap = miniimm::MiniImmStr::from_str("akjdhkasjdaskdhakshdjk");
-    let stack = miniimm::MiniImmStr::from_str("hello!");
+use miniimm::MiniImmStr;
 
-    let heap2 = miniimm::MiniImmStr::from_string(String::from("akjdhkasjdaskdhakshdjk"));
-    let stack2 = miniimm::MiniImmStr::from_string(String::from("hello!"));
+fn main() {
+    let heap = MiniImmStr::from_str("akjdhkasjdaskdhakshdjk");
+    let stack = MiniImmStr::from_str("hello!");
 
     println!("on heap: {}", heap);
     println!("inline: {}", stack);
-    println!("on heap: {}", heap2);
-    println!("inline: {}", stack2);
 
     assert!(!heap.is_inline());
     assert!(stack.is_inline());
-    assert!(!heap2.is_inline());
-    assert!(stack2.is_inline());
 
-    std::mem::drop(heap);
-    std::mem::drop(stack);
-    std::mem::drop(heap2);
-    std::mem::drop(stack2);
+    // MiniImmStr Derefs to &str, meaning you can call any str method.
+    assert!(heap.is_ascii());
+    assert!(stack.is_ascii());
+
+    assert!(std::mem::size_of::<MiniImmStr>() == 16);
 }
