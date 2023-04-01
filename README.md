@@ -1,4 +1,4 @@
-# MiniImm [![Docs](https://docs.rs/miniimm/badge.svg)](https://docs.rs/icu) [![Latest Version]][crates.io]
+# MiniImm [![Docs](https://docs.rs/miniimm/badge.svg)](https://docs.rs/icu) [![Latest Version]](https://crates.io/crates/serde)
 
 MiniImm is a small rust library providing small string optimization for immutable strings.
 If you have many small strings, it can be beneficial to store them inline on the stack
